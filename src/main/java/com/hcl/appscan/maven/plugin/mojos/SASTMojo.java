@@ -67,6 +67,7 @@ public abstract class SASTMojo extends AppScanMojo {
 		Map<String, String> properties = new HashMap<String, String>();
 		properties.put(CoreConstants.SCAN_NAME, getScanName());
 		properties.put(SASTConstants.SAVE_LOCATION, m_irx.getParent());
+		properties.put("APPSCAN_IRGEN_CLIENT", "Maven");
 		return properties;
 	}
 	
