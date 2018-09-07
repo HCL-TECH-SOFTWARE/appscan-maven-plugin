@@ -91,24 +91,27 @@ public abstract class SASTMojo extends AppScanMojo {
 		if(m_output == null || m_output.trim().equals("") || m_output.equals("true")) { //$NON-NLS-1$ $NON-NLS-2$
 			m_irx = new File(m_targetDir, getDefaultScanName());
 			getProgress().setStatus(new Message(Message.INFO, Messages.getMessage("missing.output.arg",  m_irx))); //$NON-NLS-1$
-			return;
-		}
-			
-		File irxFile = new File(m_output);
-		
-		if(irxFile.isDirectory()) {
-			m_irx = new File(irxFile, getDefaultScanName());
-			getProgress().setStatus(new Message(Message.INFO, Messages.getMessage("scan.file.is.directory",  irxFile, m_irx))); //$NON-NLS-1$
-		}	
-		else if(irxFile.getParentFile() == null || !irxFile.getParentFile().exists()) {
-			m_irx = new File(m_targetDir, getDefaultScanName());
-			getProgress().setStatus(new Message(Message.INFO, Messages.getMessage("scan.file.invalid", m_output, m_irx))); //$NON-NLS-1$
 		}
 		else {
-			//ensure .irx extension
-			String name = irxFile.getName();
-			name = name.endsWith(SASTConstants.IRX_EXTENSION) ? name : name + SASTConstants.IRX_EXTENSION;
-			m_irx = new File(irxFile.getParentFile(), name);
+			File irxFile = new File(m_output);
+			
+			if(irxFile.isDirectory()) {
+				m_irx = new File(irxFile, getDefaultScanName());
+				getProgress().setStatus(new Message(Message.INFO, Messages.getMessage("scan.file.is.directory",  irxFile, m_irx))); //$NON-NLS-1$
+			}	
+			else if(irxFile.getParentFile() == null || !irxFile.getParentFile().exists()) {
+				m_irx = new File(m_targetDir, getDefaultScanName());
+				getProgress().setStatus(new Message(Message.INFO, Messages.getMessage("scan.file.invalid", m_output, m_irx))); //$NON-NLS-1$
+			}
+			else {
+				//ensure .irx extension
+				String name = irxFile.getName();
+				name = name.endsWith(SASTConstants.IRX_EXTENSION) ? name : name + SASTConstants.IRX_EXTENSION;
+				m_irx = new File(irxFile.getParentFile(), name);
+			}
 		}
+		
+		if(m_irx.isFile())
+			m_irx.delete();
 	}
 }
