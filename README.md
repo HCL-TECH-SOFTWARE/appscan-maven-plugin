@@ -1,14 +1,14 @@
-# IBM Application Security on Cloud Maven Plugin
+# HCL AppScan on Cloud Maven Plugin
 
-Apply the power of static application security testing with IBM Application Security on Cloud – a SaaS solution that helps to eliminate vulnerabilities from applications before they are deployed. IBM Application Security on Cloud integrates directly into the SDLC, providing static, dynamic, mobile and open source testing.
+Apply the power of static application security testing with HCL AppScan on Cloud – a SaaS solution that helps to eliminate vulnerabilities from applications before they are deployed. HCL AppScan on Cloud integrates directly into the SDLC, providing static, dynamic, mobile and open source testing.
 
-You can use the IBM Application Security on Cloud Maven plugin to generate an IRX file for submission to the cloud analysis service. The results are ready quickly (90% are ready in less than one hour) having been honed by Intelligent Finding Analytics, which uses IBM’s Artificial Intelligence capabilities to greatly reduce false positives and other noise by an average of more than 98%. IFA also displays optimal locations for developers to fix multiple vulnerabilities in the code. Click [here](https://securityintelligence.com/intelligent-finding-analytics-cognitive-computing-application-security-expert/) for more information.
+You can use the HCL AppScan on Cloud Maven plugin to generate an IRX file for submission to the cloud analysis service. The results are ready quickly (90% are ready in less than one hour) having been honed by Intelligent Finding Analytics, which uses HCL's Artificial Intelligence capabilities to greatly reduce false positives and other noise by an average of more than 98%. IFA also displays optimal locations for developers to fix multiple vulnerabilities in the code. Click [here](https://securityintelligence.com/intelligent-finding-analytics-cognitive-computing-application-security-expert/) for more information.
 
-Not yet a customer of IBM Application Security on Cloud? Click [here](http://ibm.biz/ASoC-FromIDE) for a free trial of Application Security on Cloud to use with this plugin
+Not yet a customer of HCL AppScan on Cloud? Click [here](http://ibm.biz/ASoC-FromIDE) for a free trial of Application Security on Cloud to use with this plugin
 
 # Prerequisites:
 
-- An account on the [IBM Application Security on Cloud](https://www.ibm.com/marketplace/cloud/application-security-on-cloud/) service. You'll need to [create an application](http://www.ibm.com/support/knowledgecenter/SSYJJF_1.0.0/ApplicationSecurityonCloud/ent_create_application.html) on the service to associate your scans with.
+- An account on the [HCL AppScan on Cloud](https://www.ibm.com/marketplace/cloud/application-security-on-cloud/) service. You'll need to [create an application](http://www.ibm.com/support/knowledgecenter/SSYJJF_1.0.0/ApplicationSecurityonCloud/ent_create_application.html) on the service to associate your scans with.
 
 # Goals:
 
@@ -19,12 +19,12 @@ Not yet a customer of IBM Application Security on Cloud? Click [here](http://ibm
 
 To execute the "prepare" goal, run the following command:
 
-	mvn com.ibm.security:appscan-maven-plugin:prepare
+	mvn com.hcl.security:appscan-maven-plugin:prepare
   
-Note: The above command can be simplified by adding com.ibm.security to the list of plugin groups in your Maven settings.xml. To do so, add the following to ~/.m2/settings.xml or ${maven.home}/conf/settings.xml:
+Note: The above command can be simplified by adding com.hcl.security to the list of plugin groups in your Maven settings.xml. To do so, add the following to ~/.m2/settings.xml or ${maven.home}/conf/settings.xml:
 
 	<pluginGroups>
-  	  <pluginGroup>com.ibm.security</pluginGroup>
+  	  <pluginGroup>com.hcl.security</pluginGroup>
 	</pluginGroups>
 
 After doing so, you can execute the prepare goal using the "appscan" prefix. For example:
