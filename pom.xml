@@ -9,7 +9,7 @@
 	
 	<name>HCL AppScan on Cloud Maven Plugin</name>
 	<description>Generate an IRX file for use with HCL AppScan on Cloud</description>
-	<url>https://www.ibm.com/support/knowledgecenter/en/SSYJJF_1.0.0/ApplicationSecurityonCloud/src_irx_gen_maven.html</url>
+	<url>https://help.hcltechsw.com/appscan/ASoC/src_irx_gen_maven.html</url>
 
   	<licenses>
   		<license>
