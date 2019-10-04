@@ -26,6 +26,7 @@ public final class GenerateIRMojo extends SASTMojo {
 	@Override
 	protected void run() throws MojoExecutionException {
 		try {
+			getProgress().setStatus(new Message(Message.WARNING, Messages.getMessage("deprecated")));
 			getScanManager().prepare(getProgress(), getScanProperties());
 			getProgress().setStatus(new Message(Message.INFO, Messages.getMessage("ir.gen.success", getIrx()))); //$NON-NLS-1$
 		} catch (AppScanException  e) {
