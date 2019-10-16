@@ -5,7 +5,7 @@
 	<groupId>com.hcl.security</groupId>
 	<artifactId>appscan-maven-plugin</artifactId>
 	<packaging>maven-plugin</packaging>
-	<version>1.0.3</version>	
+	<version>1.0.4-SNAPSHOT</version>	
 	<name>HCL AppScan on Cloud Maven Plugin</name>
 	<description>Generate an IRX file for use with HCL AppScan on Cloud</description>
 	<url>https://help.hcltechsw.com/appscan/ASoC/src_irx_gen_maven.html</url>
@@ -168,7 +168,7 @@
   		<connection>scm:git:ssh://github.com/hclproducts/appscan-maven-plugin.git</connection>
   		<developerConnection>scm:git:ssh://git@github.com/hclproducts/appscan-maven-plugin.git</developerConnection>
   		<url>https://github.com/hclproducts/appscan-maven-plugin</url>
-  	  <tag>appscan-maven-plugin-1.0.3</tag>
+  	  <tag>appscan-maven-plugin-1.0.0</tag>
   </scm>
 
 </project>
