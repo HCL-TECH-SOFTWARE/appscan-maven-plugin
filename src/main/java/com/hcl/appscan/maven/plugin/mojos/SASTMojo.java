@@ -13,6 +13,7 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
+import org.apache.maven.plugin.descriptor.PluginDescriptor;
 
 import com.hcl.appscan.maven.plugin.IMavenConstants;
 import com.hcl.appscan.maven.plugin.Messages;
@@ -34,6 +35,7 @@ public abstract class SASTMojo extends AppScanMojo {
 	
 	private File m_irx;
 	private IScanManager m_scanManager;
+	
 	
 	@Override
 	protected void initialize() {
@@ -68,7 +70,21 @@ public abstract class SASTMojo extends AppScanMojo {
 		properties.put(CoreConstants.SCAN_NAME, getScanName());
 		properties.put(SASTConstants.SAVE_LOCATION, m_irx.getParent());
 		properties.put("APPSCAN_IRGEN_CLIENT", "Maven");
+		properties.put("APPSCAN_CLIENT_VERSION", getPluginVersion());
 		return properties;
+	}
+	
+	private String getPluginVersion () {
+		
+		String pluginVersion = "";
+		
+		PluginDescriptor descriptor = (PluginDescriptor)getPluginContext().get("pluginDescriptor");
+		
+		if(descriptor.getVersion() != null) {
+			pluginVersion = descriptor.getVersion();
+		};
+		
+		return pluginVersion;
 	}
 	
 	protected abstract void run() throws MojoExecutionException;
