@@ -79,7 +79,7 @@ public abstract class SASTMojo extends AppScanMojo {
 		String pluginVersion = "";
 		PluginDescriptor descriptor = (PluginDescriptor)getPluginContext().get("pluginDescriptor");
 		
-		if(descriptor.getVersion() != null) {
+		if(descriptor != null) {
 			pluginVersion = descriptor.getVersion();
 		};
 		
