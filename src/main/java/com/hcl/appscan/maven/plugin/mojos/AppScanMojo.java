@@ -9,8 +9,10 @@ package com.hcl.appscan.maven.plugin.mojos;
 import java.util.List;
 
 import org.apache.maven.plugin.AbstractMojo;
+import org.apache.maven.plugins.annotations.Component;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
+import org.apache.maven.rtinfo.RuntimeInformation;
 
 import com.hcl.appscan.maven.plugin.managers.MavenProgress;
 import com.hcl.appscan.sdk.logging.IProgress;
@@ -40,6 +42,12 @@ public abstract class AppScanMojo extends AbstractMojo
 	 */
 	@Parameter (defaultValue="${session.executionRootDirectory}/target", required=false, readonly=true) //$NON-NLS-1$
 	protected String m_targetDir;
+	
+	/**
+	* Maven runtime information.
+	*/
+	@Component
+	protected RuntimeInformation m_runtimeInformation;
 	
 	private IProgress m_progress;
 	
