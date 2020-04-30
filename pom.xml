@@ -7,7 +7,7 @@
 	<packaging>maven-plugin</packaging>
 	<version>1.0.4-SNAPSHOT</version>	
 	<name>HCL AppScan on Cloud Maven Plugin</name>
-	<description>Generate an IRX file for use with HCL AppScan on Cloud</description>
+	<description>Generate an IRX file and optionally submit it for analysis to HCL AppScan on Cloud</description>
 	<url>https://help.hcltechsw.com/appscan/ASoC/src_irx_gen_maven.html</url>
 
   	<licenses>
@@ -88,7 +88,7 @@
 		<dependency>
 			<groupId>com.hcl</groupId>
 			<artifactId>appscan.sdk</artifactId>
-			<version>1.0.14</version>
+			<version>1.0.15</version>
 		</dependency>
 	</dependencies>
 
