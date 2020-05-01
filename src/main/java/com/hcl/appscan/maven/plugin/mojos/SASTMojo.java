@@ -24,6 +24,7 @@ import com.hcl.appscan.sdk.scan.IScanManager;
 import com.hcl.appscan.sdk.scanners.sast.SASTConstants;
 import com.hcl.appscan.sdk.scanners.sast.SASTScanManager;
 import com.hcl.appscan.sdk.utils.FileUtil;
+import com.hcl.appscan.sdk.utils.SystemUtil;
 
 public abstract class SASTMojo extends AppScanMojo {
 
@@ -69,15 +70,16 @@ public abstract class SASTMojo extends AppScanMojo {
 		Map<String, String> properties = new HashMap<String, String>();
 		properties.put(CoreConstants.SCAN_NAME, getScanName());
 		properties.put(SASTConstants.SAVE_LOCATION, m_irx.getParent());
-		properties.put("APPSCAN_IRGEN_CLIENT", "Maven");
-		properties.put("APPSCAN_CLIENT_VERSION", m_runtimeInformation.getMavenVersion());
-		properties.put("IRGEN_CLIENT_PLUGIN_VERSION", getPluginVersion());
+		properties.put("APPSCAN_IRGEN_CLIENT", "Maven"); //$NON-NLS-1$ //$NON-NLS-2$
+		properties.put("APPSCAN_CLIENT_VERSION", m_runtimeInformation.getMavenVersion()); //$NON-NLS-1$
+		properties.put("IRGEN_CLIENT_PLUGIN_VERSION", getPluginVersion()); //$NON-NLS-1$
+		properties.put("ClientType", "maven-" + SystemUtil.getOS() + "-" + getPluginVersion()); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		return properties;
 	}
 	
 	private String getPluginVersion () {
 		String pluginVersion = "";
-		PluginDescriptor descriptor = (PluginDescriptor)getPluginContext().get("pluginDescriptor");
+		PluginDescriptor descriptor = (PluginDescriptor)getPluginContext().get("pluginDescriptor"); //$NON-NLS-1$
 		
 		if(descriptor != null) {
 			pluginVersion = descriptor.getVersion();

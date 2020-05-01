@@ -16,6 +16,9 @@ import com.hcl.appscan.maven.plugin.Messages;
 import com.hcl.appscan.sdk.error.AppScanException;
 import com.hcl.appscan.sdk.logging.Message;
 
+/**
+ * Generates a .irx file for running security analysis. 
+ */
 @Mojo (name="prepare", //$NON-NLS-1$
 		requiresProject=true,
 		requiresDependencyResolution=ResolutionScope.COMPILE,
