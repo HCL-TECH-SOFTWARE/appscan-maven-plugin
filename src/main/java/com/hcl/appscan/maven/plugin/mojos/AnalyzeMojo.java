@@ -1,5 +1,7 @@
 package com.hcl.appscan.maven.plugin.mojos;
 
+import java.util.Map;
+
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.Execute;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
@@ -9,6 +11,7 @@ import org.apache.maven.plugins.annotations.ResolutionScope;
 
 import com.hcl.appscan.maven.plugin.Messages;
 import com.hcl.appscan.maven.plugin.auth.MavenAuthenticationProvider;
+import com.hcl.appscan.sdk.CoreConstants;
 import com.hcl.appscan.sdk.auth.IAuthenticationProvider;
 import com.hcl.appscan.sdk.error.AppScanException;
 import com.hcl.appscan.sdk.logging.Message;
@@ -37,10 +40,18 @@ public final class AnalyzeMojo extends SASTMojo {
 	@Parameter (property="appscanSecret", required=true, readonly=true) //$NON-NLS-1$
 	private String appscanSecret;
 	
+	/**
+	* The application ID to associate the scan with.
+	*/ 
+	@Parameter (property="appId", required=true, readonly=true) //$NON-NLS-1$
+	private String appId;
+	
 	@Override
 	protected void run() throws MojoExecutionException {
 		try {
-			getScanManager().analyze(getProgress(), getScanProperties(), getServiceProvider());
+			Map<String, String> properties = getScanProperties();
+			properties.put(CoreConstants.APP_ID, appId);
+			getScanManager().analyze(getProgress(), properties, getServiceProvider());
 			getProgress().setStatus(new Message(Message.INFO, Messages.getMessage("ir.analyze.success", getIrx()))); //$NON-NLS-1$
 		} catch (AppScanException  e) {
 			getProgress().setStatus(e);
