@@ -6,6 +6,7 @@
 package com.hcl.appscan.maven.plugin.mojos;
 
 import java.io.File;
+import java.nio.file.FileSystems;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -111,6 +112,10 @@ public abstract class SASTMojo extends AppScanMojo {
 		}
 		else {
 			File irxFile = new File(m_output);
+			if(!irxFile.isAbsolute()) {
+				//If the path is relative, make it absolute based on the current directory.
+				irxFile = FileSystems.getDefault().getPath(irxFile.getPath()).normalize().toAbsolutePath().toFile();
+			}
 			
 			if(irxFile.isDirectory()) {
 				m_irx = new File(irxFile, getDefaultScanName());
