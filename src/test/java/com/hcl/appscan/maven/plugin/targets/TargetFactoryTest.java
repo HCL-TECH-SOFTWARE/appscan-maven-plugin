@@ -16,6 +16,14 @@ import com.hcl.appscan.sdk.scanners.sast.targets.ISASTTarget;
 public class TargetFactoryTest {
 	
 	@Test
+	public void testApkPackaging() {
+		MavenProject project = new MavenProject();
+		project.setPackaging(IMavenConstants.APK);
+		ISASTTarget target = TargetFactory.create(project);
+		assertTrue(target instanceof MavenAndroidTarget);
+	}
+	
+	@Test
 	public void testJarPackaging() {
 		MavenProject project = new MavenProject();
 		project.setPackaging(IMavenConstants.JAR);
