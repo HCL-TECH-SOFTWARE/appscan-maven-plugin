@@ -1,5 +1,5 @@
 /**
- * © Copyright HCL Technologies Ltd. 2020. 
+ * ï¿½ Copyright HCL Technologies Ltd. 2020. 
  * LICENSE: Apache License, Version 2.0 https://www.apache.org/licenses/LICENSE-2.0
  */
 
@@ -10,6 +10,7 @@ import java.util.Map;
 
 import org.apache.maven.project.MavenProject;
 import com.hcl.appscan.maven.plugin.IMavenConstants;
+import com.hcl.appscan.maven.plugin.util.MavenUtil;
 import com.hcl.appscan.sdk.scanners.sast.targets.DefaultTarget;
 
 public class MavenAndroidTarget extends DefaultTarget implements IMavenConstants {
@@ -25,12 +26,18 @@ public class MavenAndroidTarget extends DefaultTarget implements IMavenConstants
 	}
 	
 	public File getTargetFile() {
-		File androidManifest = new File(m_project.getBasedir(), ANDROID_MANIFEST);
+		File androidManifest = new File(MavenUtil.getPluginConfigurationProperty(m_project, ANDROID_KEY, ANDROID_MANIFEST_FILE));
+	
 		if (androidManifest.exists())
 			return androidManifest;
 		else {
-			File[] files = new File((m_project.getBasedir()).toString()).listFiles();
-			return findAndroidManifestFile(files);
+			androidManifest = new File(m_project.getBasedir(), ANDROID_MANIFEST);
+			if (androidManifest.exists())
+				return androidManifest;
+			else {
+				File[] files = new File((m_project.getBasedir()).toString()).listFiles();
+				return findAndroidManifestFile(files);
+			}
 		}
 	}
 

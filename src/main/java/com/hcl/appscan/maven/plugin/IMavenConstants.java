@@ -22,10 +22,12 @@ public interface IMavenConstants {
 	
 	String ANDROID_MANIFEST					= "AndroidManifest.xml";							//$NON-NLS-1$
 	
+	String ANDROID_KEY						= "com.jayway.maven.plugins.android.generation2:android-maven-plugin";	//$NON-NLS-1$
 	String JAR_KEY  						= "org.apache.maven.plugins:maven-jar-plugin";		//$NON-NLS-1$
 	String WAR_KEY  						= "org.apache.maven.plugins:maven-war-plugin";		//$NON-NLS-1$
 	String EAR_KEY  						= "org.apache.maven.plugins:maven-ear-plugin";		//$NON-NLS-1$
 	
+	String ANDROID_MANIFEST_FILE			= "androidManifestFile";							//$NON-NLS-1$
 	String FINAL_NAME  						= "finalName";										//$NON-NLS-1$
 	String WAR_NAME 	 					= "warName";										//$NON-NLS-1$
 	
