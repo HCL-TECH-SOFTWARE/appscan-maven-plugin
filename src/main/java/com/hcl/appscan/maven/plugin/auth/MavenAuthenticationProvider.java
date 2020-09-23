@@ -47,7 +47,7 @@ public class MavenAuthenticationProvider implements IAuthenticationProvider {
 
 	@Override
 	public String getServer() {
-		return SystemUtil.getDefaultServer();
+		return SystemUtil.getServer(m_key);
 	}
 
 	@Override
