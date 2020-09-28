@@ -21,6 +21,9 @@ public class TargetFactory implements IMavenConstants {
 		case EAR:
 			target = new MavenJEETarget(project);
 			break;
+		case APK:
+			target = new MavenAndroidTarget(project);
+			break;
 		case POM:
 			target = null;
 			break;

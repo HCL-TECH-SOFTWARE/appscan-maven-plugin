@@ -8,6 +8,7 @@ package com.hcl.appscan.maven.plugin;
 
 public interface IMavenConstants {
 
+	String APK 								= "apk";											//$NON-NLS-1$
 	String JAR 								= "jar";											//$NON-NLS-1$
 	String WAR 								= "war";											//$NON-NLS-1$
 	String EAR  							= "ear";											//$NON-NLS-1$
@@ -19,10 +20,14 @@ public interface IMavenConstants {
 	String EAR_EXTENSION 					= ".ear";											//$NON-NLS-1$
 	String IRX_EXTENSION 					= ".irx";											//$NON-NLS-1$
 	
+	String ANDROID_MANIFEST					= "AndroidManifest.xml";							//$NON-NLS-1$
+	
+	String ANDROID_KEY						= "com.simpligility.maven.plugins:android-maven-plugin";	//$NON-NLS-1$
 	String JAR_KEY  						= "org.apache.maven.plugins:maven-jar-plugin";		//$NON-NLS-1$
 	String WAR_KEY  						= "org.apache.maven.plugins:maven-war-plugin";		//$NON-NLS-1$
 	String EAR_KEY  						= "org.apache.maven.plugins:maven-ear-plugin";		//$NON-NLS-1$
 	
+	String ANDROID_MANIFEST_FILE			= "androidManifestFile";							//$NON-NLS-1$
 	String FINAL_NAME  						= "finalName";										//$NON-NLS-1$
 	String WAR_NAME 	 					= "warName";										//$NON-NLS-1$
 	
