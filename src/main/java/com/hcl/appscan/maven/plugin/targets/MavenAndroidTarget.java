@@ -39,16 +39,11 @@ public class MavenAndroidTarget extends DefaultTarget implements IMavenConstants
 			return androidManifest;
 		}
 		else {
-			androidManifest = new File(m_project.getBasedir(), ANDROID_MANIFEST);
-			if (androidManifest.isFile()) {
-				return androidManifest;
-			}
 			Iterator<File> files = FileUtils.iterateFiles(m_project.getBasedir(), TrueFileFilter.INSTANCE, TrueFileFilter.INSTANCE);
             while (files.hasNext()) {
                 File curr = files.next();
-                if (curr.toString().endsWith(ANDROID_MANIFEST)) {
+                if (curr.getName().equalsIgnoreCase(ANDROID_MANIFEST))
                     return curr;
-                }
             }
 		}
 		return androidManifest;
