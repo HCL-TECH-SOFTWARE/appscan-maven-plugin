@@ -7,6 +7,7 @@
 package com.hcl.appscan.maven.plugin.targets;
 
 import java.io.File;
+import java.util.Map;
 
 import org.apache.maven.project.MavenProject;
 
@@ -63,5 +64,12 @@ public class MavenJEETarget extends JEETarget implements IMavenConstants {
 	@Override
 	public String getJava() {
 		return m_target.getJava();
+	}
+	
+	@Override
+	public Map<String, String> getProperties() {
+		Map<String, String> buildInfos = super.getProperties();
+		buildInfos.putAll(m_target.getProperties());
+		return buildInfos;
 	}
 }
