@@ -62,8 +62,13 @@ public class MavenJavaTarget extends JavaTarget implements IMavenConstants{
 		return buildInfos;
 	}
 	
-	//From each source root, get the first 2 directories and use as a whitelist for packages that we'll scan.
 	private String getNamespaces() {
+		//Allow user to override automatic namespace detection.
+		String namespaceOverride = System.getProperty(NAMESPACES);
+		if(namespaceOverride != null && !namespaceOverride.equalsIgnoreCase("true"))
+			return namespaceOverride.replaceAll("[^A-Za-z0-9;.]", "");
+	
+		//From each source root, get the first 2 directories and use as a whitelist for packages that we'll scan.
 		String separator = ";";
 		String ret = "";
 		Set<String> namespaces = new HashSet<String>();
