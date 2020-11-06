@@ -44,6 +44,7 @@ After doing so, you can execute the prepare goal using the "appscan" prefix. For
     appId		null - Required for 'analyze' goal		The id of the application in the cloud service.
     appscanKey	null - Required for 'analyze' goal        	The user's API key id for authentication.
     appscanSecret	null - Required for 'analyze' goal        	The user's API key secret for authentication.
+    namespaces	null						Override automatic namespace detection. Set to "" to disable namespace detection.
 
 # License
 
