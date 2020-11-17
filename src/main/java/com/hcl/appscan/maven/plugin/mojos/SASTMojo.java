@@ -21,7 +21,6 @@ import com.hcl.appscan.maven.plugin.Messages;
 import com.hcl.appscan.maven.plugin.targets.MavenTarget;
 import com.hcl.appscan.sdk.CoreConstants;
 import com.hcl.appscan.sdk.logging.Message;
-import com.hcl.appscan.sdk.scan.IScanManager;
 import com.hcl.appscan.sdk.scanners.sast.SASTConstants;
 import com.hcl.appscan.sdk.scanners.sast.SASTScanManager;
 import com.hcl.appscan.sdk.utils.FileUtil;
@@ -36,7 +35,7 @@ public abstract class SASTMojo extends AppScanMojo {
 	private String m_output;
 	
 	private File m_irx;
-	private IScanManager m_scanManager;
+	private SASTScanManager m_scanManager;
 	
 	
 	@Override
@@ -59,7 +58,7 @@ public abstract class SASTMojo extends AppScanMojo {
     	}
     }
 	
-	protected IScanManager getScanManager() {
+	protected SASTScanManager getScanManager() {
 		return m_scanManager;
 	}
 	
