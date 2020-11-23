@@ -30,6 +30,7 @@ public interface IMavenConstants {
 	String ANDROID_MANIFEST_FILE			= "androidManifestFile";							//$NON-NLS-1$
 	String FINAL_NAME  						= "finalName";										//$NON-NLS-1$
 	String WAR_NAME 	 					= "warName";										//$NON-NLS-1$
+	String APPSCAN_SERVER					= "appscan";										//$NON-NLS-1$
 	
 	String VAR_JAVA_HOME					= "JAVA_HOME";										//$NON-NLS-1$
 	String PROP_JAVA_HOME					= "java.home";										//$NON-NLS-1$
