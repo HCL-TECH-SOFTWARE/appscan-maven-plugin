@@ -40,7 +40,7 @@ After doing so, you can execute the prepare goal using the "appscan" prefix. For
 # Configurable Options:
 
 	OPTION:			DEFAULT VALUE					DESCRIPTION
-    output		<root project>/target/<root project name>.irx	The name and/or location of the generated .irx file.
+    output		<root project>/target/<root project name>.irx	The name and/or location of the generated .irx file. If the selected path does not exist, the default path is applied.
     appId		null - Required for 'analyze' goal		The id of the application in the cloud service.
     appscanKey	null - Required for 'analyze' goal        	The user's API key id for authentication.
     appscanSecret	null - Required for 'analyze' goal        	The user's API key secret for authentication.
