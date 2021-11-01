@@ -99,7 +99,8 @@ public abstract class SASTMojo extends AppScanMojo {
 		}else if(m_isSourceCodeOnly){
 			m_scanManager.setIsSourceCodeOnlyEnabled(true);
 			for(String sourceRoot : project.getBuild().getSourceDirectory().split(File.pathSeparator)){
-				m_scanManager.addScanTarget(new GenericTarget(sourceRoot));
+				if(!sourceRoot.toString().contains("test"))
+					m_scanManager.addScanTarget(new GenericTarget(sourceRoot));
 			}
 			if (m_project.getPackaging().equalsIgnoreCase("war")) {
 	            if(SystemUtil.getOS()=="win")
