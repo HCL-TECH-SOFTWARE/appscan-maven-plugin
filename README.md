@@ -47,9 +47,6 @@ After doing so, you can execute the prepare goal using the "appscan" prefix. For
     namespaces	null						Override automatic namespace detection. Set to "" to disable namespace detection.
     sourceCodeOnly	false						If set to true, only scan source code.
 
-Source code only scanning can be set with the following JVM parameter on the command line:
-
-	mvn appscan:prepare -DsourceCodeOnly
 
 # License
 

@@ -10,14 +10,12 @@ import org.apache.maven.project.MavenProject;
 
 import com.hcl.appscan.maven.plugin.IMavenConstants;
 import com.hcl.appscan.sdk.scanners.sast.targets.ISASTTarget;
-import com.hcl.appscan.sdk.utils.SystemUtil;
 
 public class TargetFactory implements IMavenConstants {
 
 	public static ISASTTarget create(MavenProject project) {
 		ISASTTarget target;
 		
-		if(!SystemUtil.isSourceCodeOnly()){
 			switch(project.getPackaging()) {
 			case WAR:
 			case EAR:
@@ -32,9 +30,6 @@ public class TargetFactory implements IMavenConstants {
 			default:
 				target = new MavenJavaTarget(project);
 			}
-		} else { //is sourceCodeOnly
-			target = new MavenSourceCodeOnlyTarget(project);
-		}
 		
 		return target;
 	}

@@ -18,13 +18,12 @@ import org.apache.maven.project.MavenProject;
 
 import com.hcl.appscan.maven.plugin.IMavenConstants;
 import com.hcl.appscan.maven.plugin.Messages;
-import com.hcl.appscan.maven.plugin.targets.MavenSourceCodeOnlyTarget;
 import com.hcl.appscan.maven.plugin.targets.MavenTarget;
 import com.hcl.appscan.sdk.CoreConstants;
 import com.hcl.appscan.sdk.logging.Message;
-import com.hcl.appscan.sdk.scan.ITarget;
 import com.hcl.appscan.sdk.scanners.sast.SASTConstants;
 import com.hcl.appscan.sdk.scanners.sast.SASTScanManager;
+import com.hcl.appscan.sdk.scanners.sast.targets.GenericTarget;
 import com.hcl.appscan.sdk.utils.FileUtil;
 import com.hcl.appscan.sdk.utils.SystemUtil;
 
@@ -39,6 +38,8 @@ public abstract class SASTMojo extends AppScanMojo {
 	private File m_irx;
 	private SASTScanManager m_scanManager;
 	
+	@Parameter (alias="sourceCodeOnly", defaultValue="false", required=false, readonly=false) //$NON-NLS-1$ //$NON-NLS-2$
+	private Boolean m_isSourceCodeOnly;
 	
 	@Override
 	protected void initialize() {
@@ -95,12 +96,17 @@ public abstract class SASTMojo extends AppScanMojo {
 	private void addScanTarget(MavenProject project) {
 		if(project.getPackaging().equalsIgnoreCase(IMavenConstants.POM)){
 			return;
-		}else if(SystemUtil.isSourceCodeOnly()){
+		}else if(m_isSourceCodeOnly){
 			m_scanManager.setIsSourceCodeOnlyEnabled(true);
-			MavenSourceCodeOnlyTarget scoTarget = new MavenSourceCodeOnlyTarget(project);
-			for(ITarget scoFiles : scoTarget.getTargets()){
-				m_scanManager.addScanTarget(scoFiles);
+			for(String sourceRoot : project.getBuild().getSourceDirectory().split(File.pathSeparator)){
+				m_scanManager.addScanTarget(new GenericTarget(sourceRoot));
 			}
+			if (m_project.getPackaging().equalsIgnoreCase("war")) {
+	            if(SystemUtil.getOS()=="win")
+	            	m_scanManager.addScanTarget(new GenericTarget(m_project.getBasedir()+"\\src\\main\\webapp"));
+	            else
+	            	m_scanManager.addScanTarget(new GenericTarget(m_project.getBasedir()+"/src/main/webapp"));
+	        }
 			
 		} else {
 			m_scanManager.addScanTarget(new MavenTarget(project));
