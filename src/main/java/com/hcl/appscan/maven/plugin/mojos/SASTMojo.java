@@ -19,6 +19,7 @@ import org.apache.maven.project.MavenProject;
 import com.hcl.appscan.maven.plugin.IMavenConstants;
 import com.hcl.appscan.maven.plugin.Messages;
 import com.hcl.appscan.maven.plugin.targets.MavenTarget;
+import com.hcl.appscan.maven.plugin.util.MavenUtil;
 import com.hcl.appscan.sdk.CoreConstants;
 import com.hcl.appscan.sdk.logging.Message;
 import com.hcl.appscan.sdk.scanners.sast.SASTConstants;
@@ -98,17 +99,15 @@ public abstract class SASTMojo extends AppScanMojo {
 			return;
 		}else if(m_isSourceCodeOnly){
 			m_scanManager.setIsSourceCodeOnlyEnabled(true);
-			for(String sourceRoot : project.getBuild().getSourceDirectory().split(File.pathSeparator)){
-				if(!sourceRoot.toString().contains("test"))
-					m_scanManager.addScanTarget(new GenericTarget(sourceRoot));
+			for(String sourceRoot : project.getCompileSourceRoots()){
+				m_scanManager.addScanTarget(new GenericTarget(sourceRoot));
 			}
-			if (m_project.getPackaging().equalsIgnoreCase("war")) {
-	            if(SystemUtil.getOS()=="win")
-	            	m_scanManager.addScanTarget(new GenericTarget(m_project.getBasedir()+"\\src\\main\\webapp"));
-	            else
-	            	m_scanManager.addScanTarget(new GenericTarget(m_project.getBasedir()+"/src/main/webapp"));
-	        }
-			
+			String warSourceDir = MavenUtil.getPluginConfigurationProperty(project, IMavenConstants.WAR_KEY, "warSourceDirectory");
+			if(warSourceDir!=null){
+				m_scanManager.addScanTarget(new GenericTarget(warSourceDir));
+			} else {
+				m_scanManager.addScanTarget(new GenericTarget("/src/main/webapp"));
+			}			
 		} else {
 			m_scanManager.addScanTarget(new MavenTarget(project));
 		}
