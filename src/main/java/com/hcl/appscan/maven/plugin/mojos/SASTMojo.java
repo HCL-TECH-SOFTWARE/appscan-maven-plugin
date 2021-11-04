@@ -107,7 +107,7 @@ public abstract class SASTMojo extends AppScanMojo {
 				if(warSourceDir!=null){
 					m_scanManager.addScanTarget(new GenericTarget(warSourceDir));
 				} else {
-					m_scanManager.addScanTarget(new GenericTarget("/src/main/webapp"));
+					m_scanManager.addScanTarget(new GenericTarget(new File(project.getBasedir(), "src/main/webapp").getAbsolutePath()));
 				}
 			}			
 		} else {
