@@ -36,11 +36,14 @@ public abstract class SASTMojo extends AppScanMojo {
 	@Parameter (property="output", defaultValue="", required=false, readonly=false) //$NON-NLS-1$ //$NON-NLS-2$
 	private String m_output;
 	
-	private File m_irx;
-	private SASTScanManager m_scanManager;
-	
+	/**
+	 * Scan source code rather than build output.
+	 */
 	@Parameter (alias="sourceCodeOnly", defaultValue="false", required=false, readonly=false) //$NON-NLS-1$ //$NON-NLS-2$
 	private Boolean m_isSourceCodeOnly;
+	
+	private File m_irx;
+	private SASTScanManager m_scanManager;
 	
 	@Override
 	protected void initialize() {
