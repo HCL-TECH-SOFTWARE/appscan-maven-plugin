@@ -102,7 +102,7 @@ public abstract class SASTMojo extends AppScanMojo {
 			for(String sourceRoot : project.getCompileSourceRoots()){
 				m_scanManager.addScanTarget(new GenericTarget(sourceRoot));
 			}
-			if(project.getPackaging().equalsIgnoreCase("war")){
+			if(project.getPackaging().equalsIgnoreCase(IMavenConstants.WAR)){
 				String warSourceDir = MavenUtil.getPluginConfigurationProperty(project, IMavenConstants.WAR_KEY, "warSourceDirectory");
 				if(warSourceDir!=null){
 					m_scanManager.addScanTarget(new GenericTarget(warSourceDir));
