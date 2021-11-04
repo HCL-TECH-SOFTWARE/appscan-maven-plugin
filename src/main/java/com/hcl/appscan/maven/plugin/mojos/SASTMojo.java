@@ -1,5 +1,5 @@
 /**
- * © Copyright HCL Technologies Ltd. 2017. 
+ * © Copyright HCL Technologies Ltd. 2017-2021. 
  * LICENSE: Apache License, Version 2.0 https://www.apache.org/licenses/LICENSE-2.0
  */
 
@@ -19,10 +19,12 @@ import org.apache.maven.project.MavenProject;
 import com.hcl.appscan.maven.plugin.IMavenConstants;
 import com.hcl.appscan.maven.plugin.Messages;
 import com.hcl.appscan.maven.plugin.targets.MavenTarget;
+import com.hcl.appscan.maven.plugin.util.MavenUtil;
 import com.hcl.appscan.sdk.CoreConstants;
 import com.hcl.appscan.sdk.logging.Message;
 import com.hcl.appscan.sdk.scanners.sast.SASTConstants;
 import com.hcl.appscan.sdk.scanners.sast.SASTScanManager;
+import com.hcl.appscan.sdk.scanners.sast.targets.GenericTarget;
 import com.hcl.appscan.sdk.utils.FileUtil;
 import com.hcl.appscan.sdk.utils.SystemUtil;
 
@@ -37,6 +39,8 @@ public abstract class SASTMojo extends AppScanMojo {
 	private File m_irx;
 	private SASTScanManager m_scanManager;
 	
+	@Parameter (alias="sourceCodeOnly", defaultValue="false", required=false, readonly=false) //$NON-NLS-1$ //$NON-NLS-2$
+	private Boolean m_isSourceCodeOnly;
 	
 	@Override
 	protected void initialize() {
@@ -91,9 +95,24 @@ public abstract class SASTMojo extends AppScanMojo {
 	protected abstract void run() throws MojoExecutionException;
 
 	private void addScanTarget(MavenProject project) {
-		if(project.getPackaging().equalsIgnoreCase(IMavenConstants.POM))
+		if(project.getPackaging().equalsIgnoreCase(IMavenConstants.POM)){
 			return;
-		m_scanManager.addScanTarget(new MavenTarget(project));
+		}else if(m_isSourceCodeOnly){
+			m_scanManager.setIsSourceCodeOnlyEnabled(true);
+			for(String sourceRoot : project.getCompileSourceRoots()){
+				m_scanManager.addScanTarget(new GenericTarget(sourceRoot));
+			}
+			if(project.getPackaging().equalsIgnoreCase(IMavenConstants.WAR)){
+				String warSourceDir = MavenUtil.getPluginConfigurationProperty(project, IMavenConstants.WAR_KEY, "warSourceDirectory");
+				if(warSourceDir!=null){
+					m_scanManager.addScanTarget(new GenericTarget(warSourceDir));
+				} else {
+					m_scanManager.addScanTarget(new GenericTarget("/src/main/webapp"));
+				}
+			}			
+		} else {
+			m_scanManager.addScanTarget(new MavenTarget(project));
+		}
 	}
 	
 	private String getScanName() {
