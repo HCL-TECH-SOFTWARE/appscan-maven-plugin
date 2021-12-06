@@ -33,13 +33,13 @@ public abstract class SASTMojo extends AppScanMojo {
 	/**
 	 * The .irx file.
 	 */
-	@Parameter (property="output", defaultValue="", required=false, readonly=false) //$NON-NLS-1$ //$NON-NLS-2$
+	@Parameter (property="output", alias="output", defaultValue="", required=false, readonly=false) //$NON-NLS-1$ //$NON-NLS-2$
 	private String m_output;
 	
 	/**
 	 * Scan source code rather than build output.
 	 */
-	@Parameter (alias="sourceCodeOnly", defaultValue="false", required=false, readonly=false) //$NON-NLS-1$ //$NON-NLS-2$
+	@Parameter (property="sourceCodeOnly", alias="sourceCodeOnly", defaultValue="false", required=false, readonly=false) //$NON-NLS-1$ //$NON-NLS-2$
 	private Boolean m_isSourceCodeOnly;
 	
 	private File m_irx;
