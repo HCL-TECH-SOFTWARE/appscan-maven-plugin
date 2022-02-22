@@ -1,5 +1,5 @@
 /**
- * © Copyright HCL Technologies Ltd. 2020. 
+ * © Copyright HCL Technologies Ltd. 2020, 2022. 
  * LICENSE: Apache License, Version 2.0 https://www.apache.org/licenses/LICENSE-2.0
  */
 
@@ -29,10 +29,15 @@ public class MavenAuthenticationProvider implements IAuthenticationProvider {
     private String m_token = null;
     private String m_key;
     private String m_secret;
+    private String m_clientType;
     private Server m_server;
     private SettingsDecrypter m_settingsDecrypter;
 	
     public MavenAuthenticationProvider(String key, String secret, MavenSession session, SettingsDecrypter decrypter) {
+    	this(key, secret, session, decrypter, null);
+    }
+    
+    public MavenAuthenticationProvider(String key, String secret, MavenSession session, SettingsDecrypter decrypter, String clientType) {
     	m_key = key;
     	m_secret = secret;
     	m_server = session.getSettings().getServer(IMavenConstants.APPSCAN_SERVER);
@@ -45,7 +50,7 @@ public class MavenAuthenticationProvider implements IAuthenticationProvider {
         AuthenticationHandler handler = new AuthenticationHandler(this);
 
         try {
-            isExpired = handler.isTokenExpired() && !handler.login(getKey(), getSecret(), true, LoginType.ASoC_Federated);
+            isExpired = handler.isTokenExpired() && !handler.login(getKey(), getSecret(), true, LoginType.ASoC_Federated, m_clientType);
         } catch (IOException | JSONException e) {
             isExpired = false;
         }

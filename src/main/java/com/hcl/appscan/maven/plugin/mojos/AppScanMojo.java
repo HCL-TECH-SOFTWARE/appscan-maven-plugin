@@ -1,6 +1,6 @@
 /**
  * © Copyright IBM Corporation 2016.
- * © Copyright HCL Technologies Ltd. 2017. 
+ * © Copyright HCL Technologies Ltd. 2017, 2022. 
  * LICENSE: Apache License, Version 2.0 https://www.apache.org/licenses/LICENSE-2.0
  */
 
@@ -9,6 +9,7 @@ package com.hcl.appscan.maven.plugin.mojos;
 import java.util.List;
 
 import org.apache.maven.plugin.AbstractMojo;
+import org.apache.maven.plugin.descriptor.PluginDescriptor;
 import org.apache.maven.plugins.annotations.Component;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
@@ -16,6 +17,7 @@ import org.apache.maven.rtinfo.RuntimeInformation;
 
 import com.hcl.appscan.maven.plugin.managers.MavenProgress;
 import com.hcl.appscan.sdk.logging.IProgress;
+import com.hcl.appscan.sdk.utils.SystemUtil;
 
 public abstract class AppScanMojo extends AbstractMojo
 {
@@ -65,4 +67,19 @@ public abstract class AppScanMojo extends AbstractMojo
 			return true;
 		return false;
 	}  
+	
+	protected String getPluginVersion() {
+		String pluginVersion = "";
+		PluginDescriptor descriptor = (PluginDescriptor)getPluginContext().get("pluginDescriptor"); //$NON-NLS-1$
+		
+		if(descriptor != null) {
+			pluginVersion = descriptor.getVersion();
+		};
+		
+		return pluginVersion;
+	}
+	
+	protected String getClientType() {
+		return "maven-" + SystemUtil.getOS() + "-" + getPluginVersion(); //$NON-NLS-1$ //$NON-NLS-2$
+	}
 }
