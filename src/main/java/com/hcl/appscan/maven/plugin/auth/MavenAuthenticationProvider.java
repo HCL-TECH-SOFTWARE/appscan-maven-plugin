@@ -42,6 +42,7 @@ public class MavenAuthenticationProvider implements IAuthenticationProvider {
     	m_secret = secret;
     	m_server = session.getSettings().getServer(IMavenConstants.APPSCAN_SERVER);
     	m_settingsDecrypter = decrypter;
+    	m_clientType = clientType;
     }
     
 	@Override
