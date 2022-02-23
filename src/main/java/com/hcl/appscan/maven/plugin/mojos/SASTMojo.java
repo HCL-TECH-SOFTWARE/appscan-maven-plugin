@@ -1,5 +1,5 @@
 /**
- * © Copyright HCL Technologies Ltd. 2017-2021. 
+ * © Copyright HCL Technologies Ltd. 2017-2022. 
  * LICENSE: Apache License, Version 2.0 https://www.apache.org/licenses/LICENSE-2.0
  */
 
@@ -12,7 +12,6 @@ import java.util.Map;
 
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
-import org.apache.maven.plugin.descriptor.PluginDescriptor;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
 
@@ -80,19 +79,8 @@ public abstract class SASTMojo extends AppScanMojo {
 		properties.put("APPSCAN_IRGEN_CLIENT", "Maven"); //$NON-NLS-1$ //$NON-NLS-2$
 		properties.put("APPSCAN_CLIENT_VERSION", m_runtimeInformation.getMavenVersion()); //$NON-NLS-1$
 		properties.put("IRGEN_CLIENT_PLUGIN_VERSION", getPluginVersion()); //$NON-NLS-1$
-		properties.put("ClientType", "maven-" + SystemUtil.getOS() + "-" + getPluginVersion()); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		properties.put("ClientType", getClientType()); //$NON-NLS-1$
 		return properties;
-	}
-	
-	private String getPluginVersion () {
-		String pluginVersion = "";
-		PluginDescriptor descriptor = (PluginDescriptor)getPluginContext().get("pluginDescriptor"); //$NON-NLS-1$
-		
-		if(descriptor != null) {
-			pluginVersion = descriptor.getVersion();
-		};
-		
-		return pluginVersion;
 	}
 	
 	protected abstract void run() throws MojoExecutionException;
