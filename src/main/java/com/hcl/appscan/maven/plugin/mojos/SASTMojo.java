@@ -25,7 +25,6 @@ import com.hcl.appscan.sdk.scanners.sast.SASTConstants;
 import com.hcl.appscan.sdk.scanners.sast.SASTScanManager;
 import com.hcl.appscan.sdk.scanners.sast.targets.GenericTarget;
 import com.hcl.appscan.sdk.utils.FileUtil;
-import com.hcl.appscan.sdk.utils.SystemUtil;
 
 public abstract class SASTMojo extends AppScanMojo {
 
@@ -41,6 +40,18 @@ public abstract class SASTMojo extends AppScanMojo {
 	@Parameter (property="sourceCodeOnly", alias="sourceCodeOnly", defaultValue="false", required=false, readonly=false) //$NON-NLS-1$ //$NON-NLS-2$
 	private Boolean m_isSourceCodeOnly;
 	
+	/**
+	 * Only scan for known vulnerabilities in dependencies. Disables static analysis.
+	 */
+	@Parameter (property="openSourceOnly", alias="openSourceOnly", defaultValue="false", required=false, readonly=false) //$NON-NLS-1$ //$NON-NLS-2$
+	private Boolean m_isOpenSourceOnly;
+	
+	/**
+	 * Only run static analysis. Disables scanning for known vulnerabilities in dependencies.
+	 */
+	@Parameter (property="staticAnalysisOnly", alias="staticAnalysisOnly", defaultValue="false", required=false, readonly=false) //$NON-NLS-1$ //$NON-NLS-2$
+	private Boolean m_isStaticAnalysisOnly;
+	
 	private File m_irx;
 	private SASTScanManager m_scanManager;
 	
@@ -48,6 +59,9 @@ public abstract class SASTMojo extends AppScanMojo {
 	protected void initialize() {
 		super.initialize();
 		m_scanManager = new SASTScanManager(m_targetDir);
+		m_scanManager.setIsSourceCodeOnlyEnabled(m_isSourceCodeOnly);
+		m_scanManager.setIsOpenSourceOnlyEnabled(m_isOpenSourceOnly);
+		m_scanManager.setIsStaticAnalysisOnlyEnabled(m_isStaticAnalysisOnly);
 	}
 	
 	@Override
@@ -89,7 +103,6 @@ public abstract class SASTMojo extends AppScanMojo {
 		if(project.getPackaging().equalsIgnoreCase(IMavenConstants.POM)){
 			return;
 		}else if(m_isSourceCodeOnly){
-			m_scanManager.setIsSourceCodeOnlyEnabled(true);
 			for(String sourceRoot : project.getCompileSourceRoots()){
 				m_scanManager.addScanTarget(new GenericTarget(sourceRoot));
 			}
@@ -114,7 +127,7 @@ public abstract class SASTMojo extends AppScanMojo {
 		return FileUtil.getValidFilename(m_rootProject.getName() + IMavenConstants.IRX_EXTENSION);
 	}
 
-	private void setIrxFile() {
+	protected void setIrxFile() {
 		if(m_output == null || m_output.trim().equals("") || m_output.equals("true")) { //$NON-NLS-1$ $NON-NLS-2$
 			m_irx = new File(m_targetDir, getDefaultScanName());
 			getProgress().setStatus(new Message(Message.INFO, Messages.getMessage("missing.output.arg",  m_irx))); //$NON-NLS-1$
