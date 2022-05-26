@@ -69,7 +69,6 @@ public abstract class SASTMojo extends AppScanMojo {
 
 		if(isLastProject(m_project)) {
 			initialize();
-			setIrxFile();
     		
     		for(MavenProject project : m_projects)
     			addScanTarget(project);

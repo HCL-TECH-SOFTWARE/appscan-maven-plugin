@@ -45,9 +45,4 @@ public class GenerateConfigMojo extends SASTMojo {
 			throw new MojoExecutionException(Messages.getMessage("generate.config.failed", e.getLocalizedMessage())); //$NON-NLS-1$
 		}
 	}
-	
-	@Override
-	protected void setIrxFile() {
-		//Do nothing. A .irx file will not be created.
-	}
 }

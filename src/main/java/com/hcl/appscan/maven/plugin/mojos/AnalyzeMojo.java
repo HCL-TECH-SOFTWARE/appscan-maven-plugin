@@ -65,6 +65,7 @@ public final class AnalyzeMojo extends SASTMojo {
 	@Override
 	protected void run() throws MojoExecutionException {
 		try {
+			setIrxFile();
 			Map<String, String> properties = getScanProperties();
 			properties.put(CoreConstants.APP_ID, appId);
 			getScanManager().analyze(getProgress(), properties, getServiceProvider());

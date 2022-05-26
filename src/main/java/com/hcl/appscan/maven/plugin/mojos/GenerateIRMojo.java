@@ -1,6 +1,6 @@
 /**
  * © Copyright IBM Corporation 2016.
- * © Copyright HCL Technologies Ltd. 2017. 
+ * © Copyright HCL Technologies Ltd. 2017, 2022. 
  * LICENSE: Apache License, Version 2.0 https://www.apache.org/licenses/LICENSE-2.0
  */
 
@@ -29,6 +29,7 @@ public final class GenerateIRMojo extends SASTMojo {
 	@Override
 	protected void run() throws MojoExecutionException {
 		try {
+			setIrxFile();
 			getScanManager().prepare(getProgress(), getScanProperties());
 			getProgress().setStatus(new Message(Message.INFO, Messages.getMessage("ir.gen.success", getIrx()))); //$NON-NLS-1$
 		} catch (AppScanException  e) {
