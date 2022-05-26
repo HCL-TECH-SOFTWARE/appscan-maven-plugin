@@ -70,7 +70,7 @@ public final class AnalyzeMojo extends SASTMojo {
 			properties.put(CoreConstants.APP_ID, appId);
 			getScanManager().analyze(getProgress(), properties, getServiceProvider());
 			getProgress().setStatus(new Message(Message.INFO, Messages.getMessage("ir.analyze.success", getIrx()))); //$NON-NLS-1$
-			getProgress().setStatus(new Message(Message.INFO, "AppScan ID: " + getScanManager().getScanId())); //$NON-NLS-1$
+			getProgress().setStatus(new Message(Message.INFO, "Scan ID: " + getScanManager().getScanId())); //$NON-NLS-1$
 		} catch (AppScanException  e) {
 			getProgress().setStatus(e);
 			throw new MojoExecutionException(Messages.getMessage("ir.analyze.failed", e.getLocalizedMessage())); //$NON-NLS-1$
