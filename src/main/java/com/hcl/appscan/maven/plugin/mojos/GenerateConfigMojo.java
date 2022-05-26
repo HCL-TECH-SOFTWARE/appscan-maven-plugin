@@ -38,7 +38,7 @@ public class GenerateConfigMojo extends SASTMojo {
 				getProgress().setStatus(new Message(Message.INFO, Messages.getMessage("ir.gen.success", configFile.getAbsolutePath()))); //$NON-NLS-1$
 			}
 			else {
-				throw new AppScanException("no.targets.found"); //$NON-NLS-1$
+				throw new AppScanException(Messages.getMessage("no.targets.found")); //$NON-NLS-1$
 			}
 		} catch (AppScanException e) {
 			getProgress().setStatus(e);
