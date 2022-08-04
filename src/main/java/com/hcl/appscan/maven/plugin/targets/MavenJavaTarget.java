@@ -9,6 +9,7 @@ package com.hcl.appscan.maven.plugin.targets;
 import java.io.File;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Properties;
 import java.util.Set;
 
 import org.apache.maven.artifact.Artifact;
@@ -57,7 +58,20 @@ public class MavenJavaTarget extends JavaTarget implements IMavenConstants{
 	
 	@Override
 	public Map<String, String> getProperties() {
+		String irx_cache_path = "";
 		Map<String, String> buildInfos = super.getProperties();
+		
+		if (System.getProperty(IRX_MINOR_CACHE_HOME.toUpperCase()) != null)
+			irx_cache_path = System.getProperty(IRX_MINOR_CACHE_HOME.toUpperCase());
+		else if (System.getProperty(IRX_MINOR_CACHE_HOME) != null)
+			irx_cache_path = System.getProperty(IRX_MINOR_CACHE_HOME);
+		
+		if (irx_cache_path != "") {
+			File cache_dir = new File(irx_cache_path);
+			cache_dir.mkdir();
+			buildInfos.put(IRX_MINOR_CACHE_HOME, irx_cache_path);
+		}
+		
 		buildInfos.put("package_includes", getNamespaces());
 		return buildInfos;
 	}

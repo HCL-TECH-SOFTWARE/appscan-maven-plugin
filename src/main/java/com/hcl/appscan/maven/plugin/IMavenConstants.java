@@ -35,5 +35,6 @@ public interface IMavenConstants {
 	String VAR_JAVA_HOME					= "JAVA_HOME";										//$NON-NLS-1$
 	String PROP_JAVA_HOME					= "java.home";										//$NON-NLS-1$
 	String JSP_COMPILER						= "jspCompiler";									//$NON-NLS-1$
+	String IRX_MINOR_CACHE_HOME				= "irx_minor_cache_home";							//$NON-NLS-1$
 	String NAMESPACES						= "namespaces"; 									//$NON-NLS-1$
 }
