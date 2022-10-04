@@ -52,6 +52,9 @@ public class MavenJavaTarget extends JavaTarget implements IMavenConstants{
 		String finalName = MavenUtil.getPluginConfigurationProperty(m_project, JAR_KEY, FINAL_NAME);
 		if(finalName == null)
 			finalName = m_project.getBuild().getFinalName();
+
+		if(new File(m_project.getBuild().getDirectory(), finalName + JAR_ORIGINAL_EXTENSION).exists())
+			return new File(m_project.getBuild().getDirectory(), finalName + JAR_ORIGINAL_EXTENSION);
 		return new File(m_project.getBuild().getDirectory(), finalName + JAR_EXTENSION);
 	}
 	

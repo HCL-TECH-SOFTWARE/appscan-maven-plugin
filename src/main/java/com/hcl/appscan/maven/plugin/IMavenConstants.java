@@ -14,7 +14,8 @@ public interface IMavenConstants {
 	String EAR  							= "ear";											//$NON-NLS-1$
 	String POM  							= "pom";											//$NON-NLS-1$
 	String HPI  							= "hpi";											//$NON-NLS-1$
-	
+
+	String JAR_ORIGINAL_EXTENSION           = ".jar.original";									//$NON-NLS-1$
 	String JAR_EXTENSION  					= ".jar";											//$NON-NLS-1$
 	String WAR_EXTENSION 					= ".war";											//$NON-NLS-1$
 	String EAR_EXTENSION 					= ".ear";											//$NON-NLS-1$
