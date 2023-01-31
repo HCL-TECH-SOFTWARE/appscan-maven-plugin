@@ -46,6 +46,7 @@ After doing so, you can execute the prepare goal using the "appscan" prefix. For
     appscanSecret	null - Required for 'analyze' goal        	The user's API key secret for authentication.
     namespaces	null						Override automatic namespace detection. Set to "" to disable namespace detection.
     sourceCodeOnly	false						If set to true, only scan source code.
+    jspCompiler     Default Tomcat JSP Compiler                     The JSP compiler path.
 
 
 # License
