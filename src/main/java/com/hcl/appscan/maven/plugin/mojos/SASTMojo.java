@@ -1,5 +1,5 @@
 /**
- * © Copyright HCL Technologies Ltd. 2017-2022. 
+ * © Copyright HCL Technologies Ltd. 2017-2023. 
  * LICENSE: Apache License, Version 2.0 https://www.apache.org/licenses/LICENSE-2.0
  */
 
@@ -99,7 +99,7 @@ public abstract class SASTMojo extends AppScanMojo {
 	protected abstract void run() throws MojoExecutionException;
 
 	private void addScanTarget(MavenProject project) {
-		if(project.getPackaging().equalsIgnoreCase(IMavenConstants.POM)){
+		if(shouldSkipProject(project)){
 			return;
 		}else if(m_isSourceCodeOnly){
 			for(String sourceRoot : project.getCompileSourceRoots()){
@@ -156,5 +156,10 @@ public abstract class SASTMojo extends AppScanMojo {
 		
 		if(m_irx.isFile())
 			m_irx.delete();
+	}
+	
+	private boolean shouldSkipProject(MavenProject project) {
+		return project.getPackaging().equalsIgnoreCase(IMavenConstants.POM) ||
+				(project.getPackaging().equalsIgnoreCase(IMavenConstants.EAR) && !project.isExecutionRoot());
 	}
 }
