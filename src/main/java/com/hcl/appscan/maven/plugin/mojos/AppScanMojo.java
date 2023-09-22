@@ -8,6 +8,7 @@ package com.hcl.appscan.maven.plugin.mojos;
 
 import java.util.List;
 
+import com.hcl.appscan.maven.plugin.targets.AdditionalTarget;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.descriptor.PluginDescriptor;
 import org.apache.maven.plugins.annotations.Component;
@@ -44,13 +45,19 @@ public abstract class AppScanMojo extends AbstractMojo
 	 */
 	@Parameter (defaultValue="${session.executionRootDirectory}/target", required=false, readonly=true) //$NON-NLS-1$
 	protected String m_targetDir;
-	
+
+	/**
+	 * The optional additional targets to add
+	 */
+	@Parameter (alias = "additionalTargets", required = false, readonly = false)
+	protected List<AdditionalTarget> m_additionalTargets;
+
 	/**
 	* Maven runtime information.
 	*/
 	@Component
 	protected RuntimeInformation m_runtimeInformation;
-	
+
 	private IProgress m_progress;
 	
 	protected void initialize() {
