@@ -10,6 +10,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.hcl.appscan.maven.plugin.targets.AdditionalTarget;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.Mojo;
@@ -22,7 +23,7 @@ import com.hcl.appscan.sdk.scanners.sast.targets.ISASTTarget;
 		requiresProject=true,
 		threadSafe=false)
 public final class ListTargetsMojo extends AppScanMojo {
-	
+
 	private static List<String> m_targets = null;
 	
 	public ListTargetsMojo() {
@@ -32,14 +33,26 @@ public final class ListTargetsMojo extends AppScanMojo {
 	
 	@Override
 	public void execute() throws MojoExecutionException, MojoFailureException {
-		ISASTTarget target = TargetFactory.create(m_project);
-		if(target != null) {
-			File output = target.getTargetFile();
-			if(output != null)
-				m_targets.add(output.getAbsolutePath());
+		if (skip) {
+			getLog().info("Skipping plugin execution as requested...");
+		} else {
+			ISASTTarget target = TargetFactory.create(m_project);
+			if (target != null) {
+				File output = target.getTargetFile();
+				if (output != null)
+					m_targets.add(output.getAbsolutePath());
+			}
+
+			// add additional targets if present
+			if (m_additionalTargets != null && !m_additionalTargets.isEmpty()) {
+				for (AdditionalTarget mAdditionalTarget : m_additionalTargets) {
+					m_targets.add(mAdditionalTarget.getTarget());
+				}
+			}
+
+			if (isLastProject(m_project))
+				printTargets();
 		}
-		if(isLastProject(m_project))
-			printTargets();
 	}
     
 	private void printTargets() {

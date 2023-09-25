@@ -26,6 +26,7 @@ public interface IMavenConstants {
 	String JAR_KEY  						= "org.apache.maven.plugins:maven-jar-plugin";		//$NON-NLS-1$
 	String WAR_KEY  						= "org.apache.maven.plugins:maven-war-plugin";		//$NON-NLS-1$
 	String EAR_KEY  						= "org.apache.maven.plugins:maven-ear-plugin";		//$NON-NLS-1$
+	String HCL_KEY  						= "com.hcl.security:appscan-maven-plugin";		//$NON-NLS-1$
 	
 	String ANDROID_MANIFEST_FILE			= "androidManifestFile";							//$NON-NLS-1$
 	String FINAL_NAME  						= "finalName";										//$NON-NLS-1$

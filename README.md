@@ -15,6 +15,7 @@ Not yet a customer of HCL AppScan on Cloud? Click [here](https://cloud.appscan.c
 - <b>prepare</b>:  Generates an IRX file for all jar, war, and ear projects in the build. The IRX file will be generated in the root project's "target" directory by default.
 - <b>analyze</b>:  Generates an IRX file for all jar, war, and ear projects in the build and submits it to the HCL AppScan on Cloud service for analysis. This task requires an api key, secret, and application id. The IRX file will be generated in the root project's "target" directory by default.
 - <b>listTargets</b>:  Lists the targets that will be included in the generated .irx file.
+- <b>generate-config</b>:  Generates the appscan-config.xml.
 
 # Usage:
 
@@ -48,6 +49,33 @@ After doing so, you can execute the prepare goal using the "appscan" prefix. For
     sourceCodeOnly	false						If set to true, only scan source code.
     jspCompiler     Default Tomcat JSP Compiler                     The JSP compiler path.
 
+## Adding other targets
+It is possible to tell the plugin to add multiple custom targets to the default target used by the original configuration.
+
+This is a sample configuration:
+
+    <plugin>
+        <groupId>com.hcl.security</groupId>
+        <artifactId>appscan-maven-plugin</artifactId>
+        <version>1.0.14-SNAPSHOT</version>
+        <configuration>
+            <additionalTargets>
+                <target>
+                    <targetFile> ... </targetFile>
+                    <properties>
+                        <src_root> ... </src_root>
+                    </properties>
+                    <exclusionPatterns>
+                        <exclude> ... </exclude>
+                    </exclusionPatterns>
+                    <inclusionPatterns>
+                        <include> ... </include>
+                    </inclusionPatterns>
+                </target>
+                ...
+            </additionalTargets>
+        </configuration>
+    </plugin>
 
 # License
 
