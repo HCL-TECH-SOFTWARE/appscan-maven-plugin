@@ -33,22 +33,26 @@ public final class ListTargetsMojo extends AppScanMojo {
 	
 	@Override
 	public void execute() throws MojoExecutionException, MojoFailureException {
-		ISASTTarget target = TargetFactory.create(m_project);
-		if(target != null) {
-			File output = target.getTargetFile();
-			if(output != null)
-				m_targets.add(output.getAbsolutePath());
-		}
-
-		// add additional targets if present
-		if (m_additionalTargets!= null && !m_additionalTargets.isEmpty()) {
-			for (AdditionalTarget mAdditionalTarget : m_additionalTargets) {
-				m_targets.add(mAdditionalTarget.getTarget());
+		if (skip) {
+			getLog().info("Skipping plugin execution as requested...");
+		} else {
+			ISASTTarget target = TargetFactory.create(m_project);
+			if (target != null) {
+				File output = target.getTargetFile();
+				if (output != null)
+					m_targets.add(output.getAbsolutePath());
 			}
-		}
 
-		if(isLastProject(m_project))
-			printTargets();
+			// add additional targets if present
+			if (m_additionalTargets != null && !m_additionalTargets.isEmpty()) {
+				for (AdditionalTarget mAdditionalTarget : m_additionalTargets) {
+					m_targets.add(mAdditionalTarget.getTarget());
+				}
+			}
+
+			if (isLastProject(m_project))
+				printTargets();
+		}
 	}
     
 	private void printTargets() {

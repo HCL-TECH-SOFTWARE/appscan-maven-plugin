@@ -52,6 +52,9 @@ public abstract class AppScanMojo extends AbstractMojo
 	@Parameter (alias = "additionalTargets", required = false, readonly = false)
 	protected List<AdditionalTarget> m_additionalTargets;
 
+	@Parameter (alias = "skip", property = "skip", defaultValue = "false", readonly = false, required = false)
+	protected Boolean skip;
+
 	/**
 	* Maven runtime information.
 	*/

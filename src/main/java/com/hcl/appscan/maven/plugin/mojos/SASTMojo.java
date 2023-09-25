@@ -14,6 +14,7 @@ import java.util.Map;
 import com.hcl.appscan.maven.plugin.targets.AdditionalTarget;
 import com.hcl.appscan.sdk.scan.ITarget;
 import com.hcl.appscan.sdk.scanners.sast.targets.DefaultTarget;
+import org.apache.maven.model.Plugin;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.Parameter;
@@ -29,6 +30,7 @@ import com.hcl.appscan.sdk.scanners.sast.SASTConstants;
 import com.hcl.appscan.sdk.scanners.sast.SASTScanManager;
 import com.hcl.appscan.sdk.scanners.sast.targets.GenericTarget;
 import com.hcl.appscan.sdk.utils.FileUtil;
+import org.codehaus.plexus.util.xml.Xpp3Dom;
 
 public abstract class SASTMojo extends AppScanMojo {
 
@@ -79,15 +81,19 @@ public abstract class SASTMojo extends AppScanMojo {
 
 	@Override
    	public void execute() throws MojoExecutionException, MojoFailureException {
+		if (skip) {
+			getLog().info("Skipping plugin execution as requested...");
+		} else {
+			if (isLastProject(m_project)) {
+				initialize();
 
-		if(isLastProject(m_project)) {
-			initialize();
+				for (MavenProject project : m_projects) {
 
-    		for(MavenProject project : m_projects)
-    			addScanTarget(project);
- 			
-    		run();
-    	}
+					addScanTarget(project);
+				}
+				run();
+			}
+		}
     }
 
 	protected SASTScanManager getScanManager() {
@@ -172,7 +178,10 @@ public abstract class SASTMojo extends AppScanMojo {
 	}
 
 	private boolean shouldSkipProject(MavenProject project) {
-		return project.getPackaging().equalsIgnoreCase(IMavenConstants.POM) ||
+		// verify if the target should be added checking this plugin configuration
+		boolean skipProject = Boolean.parseBoolean(MavenUtil.getPluginConfigurationProperty(project, IMavenConstants.HCL_KEY, "skip"));
+
+		return skipProject || project.getPackaging().equalsIgnoreCase(IMavenConstants.POM) ||
 				(project.getPackaging().equalsIgnoreCase(IMavenConstants.EAR) && !project.isExecutionRoot());
 	}
 }
