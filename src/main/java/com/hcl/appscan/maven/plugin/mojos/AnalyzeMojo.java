@@ -1,5 +1,5 @@
 /**
- * © Copyright HCL Technologies Ltd. 2020, 2022. 
+ * © Copyright HCL Technologies Ltd. 2020, 2024. 
  * LICENSE: Apache License, Version 2.0 https://www.apache.org/licenses/LICENSE-2.0
  */
 
@@ -78,7 +78,7 @@ public final class AnalyzeMojo extends SASTMojo {
 	}
 	
 	private IScanServiceProvider getServiceProvider() throws AppScanException {
-		IAuthenticationProvider authProvider = new MavenAuthenticationProvider(appscanKey, appscanSecret, session, settingsDecrypter, getClientType());
+		IAuthenticationProvider authProvider = new MavenAuthenticationProvider(appscanKey, appscanSecret, session, settingsDecrypter, getClientType(), getServiceUrl(), shouldAcceptSSL());
 		IScanServiceProvider serviceProvider = new CloudScanServiceProvider(getProgress(), authProvider);
 		return serviceProvider;
 	}

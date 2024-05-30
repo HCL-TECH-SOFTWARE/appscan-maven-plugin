@@ -1,5 +1,5 @@
 /**
- * © Copyright HCL Technologies Ltd. 2020, 2022. 
+ * © Copyright HCL Technologies Ltd. 2020, 2024. 
  * LICENSE: Apache License, Version 2.0 https://www.apache.org/licenses/LICENSE-2.0
  */
 
@@ -29,18 +29,22 @@ public class MavenAuthenticationProvider implements IAuthenticationProvider {
     private String m_token = null;
     private String m_key;
     private String m_secret;
+    private String m_serviceUrl;
     private String m_clientType;
+    private boolean m_acceptssl = false;
     private Server m_server;
     private SettingsDecrypter m_settingsDecrypter;
 	
-    public MavenAuthenticationProvider(String key, String secret, MavenSession session, SettingsDecrypter decrypter) {
-    	this(key, secret, session, decrypter, null);
+    public MavenAuthenticationProvider(String key, String secret, MavenSession session, SettingsDecrypter decrypter, String clientType) {
+    	this(key, secret, session, decrypter, clientType, null, false);
     }
     
-    public MavenAuthenticationProvider(String key, String secret, MavenSession session, SettingsDecrypter decrypter, String clientType) {
+    public MavenAuthenticationProvider(String key, String secret, MavenSession session, SettingsDecrypter decrypter, String clientType, String serviceUrl, boolean acceptssl) {
     	m_key = key;
     	m_secret = secret;
+    	m_serviceUrl = serviceUrl;
     	m_server = session.getSettings().getServer(IMavenConstants.APPSCAN_SERVER);
+    	m_acceptssl = acceptssl;
     	m_settingsDecrypter = decrypter;
     	m_clientType = clientType;
     }
@@ -69,7 +73,7 @@ public class MavenAuthenticationProvider implements IAuthenticationProvider {
 
 	@Override
 	public String getServer() {
-		return SystemUtil.getServer(getKey());
+		return m_serviceUrl == null || m_serviceUrl.trim().isEmpty() ? SystemUtil.getServer(getKey()) : m_serviceUrl;
 	}
 
 	@Override
@@ -110,5 +114,10 @@ public class MavenAuthenticationProvider implements IAuthenticationProvider {
 		SettingsDecryptionResult result = m_settingsDecrypter.decrypt(request);
 		
 		return result.getServer();
+	}
+
+	@Override
+	public boolean getacceptInvalidCerts() {
+		return m_acceptssl;
 	}
 }

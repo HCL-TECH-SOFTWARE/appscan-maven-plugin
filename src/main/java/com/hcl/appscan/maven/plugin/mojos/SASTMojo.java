@@ -1,5 +1,5 @@
 /**
- * © Copyright HCL Technologies Ltd. 2017-2023. 
+ * © Copyright HCL Technologies Ltd. 2017-2024. 
  * LICENSE: Apache License, Version 2.0 https://www.apache.org/licenses/LICENSE-2.0
  */
 
@@ -51,6 +51,18 @@ public abstract class SASTMojo extends AppScanMojo {
 	 */
 	@Parameter (property="staticAnalysisOnly", alias="staticAnalysisOnly", defaultValue="false", required=false, readonly=false) //$NON-NLS-1$ //$NON-NLS-2$
 	private Boolean m_isStaticAnalysisOnly;
+
+	/**
+	 * Ignore untrusted certificates when connecting to AppScan 360. Only intended for testing purposes. Not applicable to AppScan on Cloud.
+	 */
+	@Parameter (property="acceptssl", alias="acceptssl", defaultValue="false", required=false, readonly=false) //$NON-NLS-1$ //$NON-NLS-2$
+	private Boolean m_acceptssl;
+	
+	/**
+	 * The AppScan 360 service url. Not applicable to AppScan on Cloud.
+	 */
+	@Parameter (property="serviceUrl", alias="serviceUrl", required=false, readonly=false) //$NON-NLS-1$ //$NON-NLS-2$
+	private String m_serviceUrl;
 	
 	private File m_irx;
 	private SASTScanManager m_scanManager;
@@ -85,14 +97,24 @@ public abstract class SASTMojo extends AppScanMojo {
 		return m_irx;
 	}
 	
+	protected String getServiceUrl() {
+		return m_serviceUrl;
+	}
+	
+	protected boolean shouldAcceptSSL() {
+		return m_acceptssl;
+	}
+	
 	protected Map<String, String> getScanProperties() {
 		Map<String, String> properties = new HashMap<String, String>();
 		properties.put(CoreConstants.SCAN_NAME, getScanName());
 		properties.put(SASTConstants.SAVE_LOCATION, m_irx.getParent());
-		properties.put("APPSCAN_IRGEN_CLIENT", "Maven"); //$NON-NLS-1$ //$NON-NLS-2$
-		properties.put("APPSCAN_CLIENT_VERSION", m_runtimeInformation.getMavenVersion()); //$NON-NLS-1$
-		properties.put("IRGEN_CLIENT_PLUGIN_VERSION", getPluginVersion()); //$NON-NLS-1$
-		properties.put("ClientType", getClientType()); //$NON-NLS-1$
+		properties.put(SASTConstants.APPSCAN_IRGEN_CLIENT, "Maven"); //$NON-NLS-1$
+		properties.put(SASTConstants.APPSCAN_CLIENT_VERSION, m_runtimeInformation.getMavenVersion());
+		properties.put(SASTConstants.IRGEN_CLIENT_PLUGIN_VERSION, getPluginVersion());
+		properties.put(CoreConstants.CLIENT_TYPE, getClientType());
+		properties.put(CoreConstants.SERVER_URL, m_serviceUrl);
+		properties.put(CoreConstants.ACCEPT_INVALID_CERTS, Boolean.toString(m_acceptssl));
 		return properties;
 	}
 	

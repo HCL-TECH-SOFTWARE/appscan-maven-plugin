@@ -50,6 +50,8 @@ After doing so, you can execute the prepare goal using the "appscan" prefix. For
     staticAnalysisOnly	false					Only run static analysis. Do not run software composition analysis (SCA).
     jspCompiler     Default Tomcat JSP Compiler                     The JSP compiler path.
     thirdParty		false					Include known third party packages in static analysis (not recommended).
+    serviceUrl		null					REQUIRED for AppScan 360. The AppScan 360 service url. Not applicable to AppScan on Cloud.
+    acceptssl		false					Ignore untrusted certificates when connecting to AppScan 360. Only intended for testing purposes. Not applicable to AppScan on Cloud.
 
 # License
 
