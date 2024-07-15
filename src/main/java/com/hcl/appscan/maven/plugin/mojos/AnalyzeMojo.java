@@ -22,7 +22,6 @@ import com.hcl.appscan.maven.plugin.auth.MavenAuthenticationProvider;
 import com.hcl.appscan.sdk.CoreConstants;
 import com.hcl.appscan.sdk.auth.IAuthenticationProvider;
 import com.hcl.appscan.sdk.error.AppScanException;
-import com.hcl.appscan.sdk.logging.Message;
 import com.hcl.appscan.sdk.scan.CloudScanServiceProvider;
 import com.hcl.appscan.sdk.scan.IScanServiceProvider;
 
@@ -69,8 +68,6 @@ public final class AnalyzeMojo extends SASTMojo {
 			Map<String, String> properties = getScanProperties();
 			properties.put(CoreConstants.APP_ID, appId);
 			getScanManager().analyze(getProgress(), properties, getServiceProvider());
-			getProgress().setStatus(new Message(Message.INFO, Messages.getMessage("ir.analyze.success", getIrx()))); //$NON-NLS-1$
-			getProgress().setStatus(new Message(Message.INFO, "Scan ID: " + getScanManager().getScanId())); //$NON-NLS-1$
 		} catch (AppScanException  e) {
 			getProgress().setStatus(e);
 			throw new MojoExecutionException(Messages.getMessage("ir.analyze.failed", e.getLocalizedMessage())); //$NON-NLS-1$
