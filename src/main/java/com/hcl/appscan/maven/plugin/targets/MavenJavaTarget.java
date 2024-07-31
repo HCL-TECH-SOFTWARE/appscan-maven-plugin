@@ -1,6 +1,6 @@
 /**
  * © Copyright IBM Corporation 2016.
- * © Copyright HCL Technologies Ltd. 2017, 2020. 
+ * © Copyright HCL Technologies Ltd. 2017, 2024. 
  * LICENSE: Apache License, Version 2.0 https://www.apache.org/licenses/LICENSE-2.0
  */
 
@@ -52,7 +52,12 @@ public class MavenJavaTarget extends JavaTarget implements IMavenConstants{
 		String finalName = MavenUtil.getPluginConfigurationProperty(m_project, JAR_KEY, FINAL_NAME);
 		if(finalName == null)
 			finalName = m_project.getBuild().getFinalName();
-		return new File(m_project.getBuild().getDirectory(), finalName + JAR_EXTENSION);
+		
+		String outputDirectory = MavenUtil.getPluginConfigurationProperty(m_project, JAR_KEY, OUTPUT_DIRECTORY);
+		if(outputDirectory == null)
+			outputDirectory = m_project.getBuild().getDirectory();
+		
+		return new File(outputDirectory, finalName + JAR_EXTENSION);
 	}
 	
 	@Override

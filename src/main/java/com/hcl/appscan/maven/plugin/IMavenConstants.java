@@ -1,6 +1,6 @@
 /**
  * © Copyright IBM Corporation 2016.
- * © Copyright HCL Technologies Ltd. 2017, 2020. 
+ * © Copyright HCL Technologies Ltd. 2017, 2024. 
  * LICENSE: Apache License, Version 2.0 https://www.apache.org/licenses/LICENSE-2.0
  */
 
@@ -29,6 +29,7 @@ public interface IMavenConstants {
 	
 	String ANDROID_MANIFEST_FILE			= "androidManifestFile";							//$NON-NLS-1$
 	String FINAL_NAME  						= "finalName";										//$NON-NLS-1$
+	String OUTPUT_DIRECTORY					= "outputDirectory";								//$NON-NLS-1$
 	String WAR_NAME 	 					= "warName";										//$NON-NLS-1$
 	String APPSCAN_SERVER					= "appscan";										//$NON-NLS-1$
 	
