@@ -54,8 +54,12 @@ public class MavenJavaTarget extends JavaTarget implements IMavenConstants{
 			finalName = m_project.getBuild().getFinalName();
 		
 		String outputDirectory = MavenUtil.getPluginConfigurationProperty(m_project, JAR_KEY, OUTPUT_DIRECTORY);
-		if(outputDirectory == null)
+		if(outputDirectory != null) {
+			outputDirectory = new File(m_project.getBasedir(), outputDirectory).getAbsolutePath();
+		}
+		else {
 			outputDirectory = m_project.getBuild().getDirectory();
+		}
 		
 		return new File(outputDirectory, finalName + JAR_EXTENSION);
 	}
