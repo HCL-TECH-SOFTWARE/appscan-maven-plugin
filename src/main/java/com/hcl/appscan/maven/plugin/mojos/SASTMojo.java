@@ -137,6 +137,9 @@ public abstract class SASTMojo extends AppScanMojo {
 			}			
 		} else {
 			m_scanManager.addScanTarget(new MavenTarget(project));
+			for(String sourceRoot : project.getCompileSourceRoots()){
+				m_scanManager.addScanTarget(new GenericTarget(sourceRoot));
+			}
 		}
 	}
 	
