@@ -8,7 +8,7 @@ quickly—90% are ready in less than one hour—having been honed by Intelligent
 other noise by an average of more than 98%. IFA also displays optimal locations for developers to fix multiple vulnerabilities in the code. [Learn more about Intelligent
 Finding Analytics.](https://securityintelligence.com/intelligent-finding-analytics-cognitive-computing-application-security-expert).
 
-Not yet an HCL AppScan on Cloud or AppScan 360 customer? [Get a free trial of Application Security on Cloud](https://cloud.appscan.com/) to use with Maven,or [get a free trial of AppScan 360°](https://www.hcl-software.com/appscan/products/appscan360/contact). 
+Not yet an HCL AppScan on Cloud or AppScan 360 customer? [Get a free trial of Application Security on Cloud](https://cloud.appscan.com/) to use with Maven, or [get a free trial of AppScan 360°](https://www.hcl-software.com/appscan/products/appscan360/contact). 
 
 # Prerequisites:
 
@@ -18,7 +18,7 @@ Not yet an HCL AppScan on Cloud or AppScan 360 customer? [Get a free trial of Ap
 # Goals:
 
 - <b>prepare</b>:  Generates an IRX file for all jar, war, and ear projects in the build. The IRX file will be generated in the root project's "target" directory by default.
-- <b>analyze</b>:  Generates an IRX file for all jar, war, and ear projects in the build and submits it to the HCL AppScan on Cloud service or AppScan 360° for analysis. This task requires an API key, secret, and application ID (additional parameters serviceUrl and acceptssl would be needed for AppScan 360°). The IRX file will be generated in the root project's "target" directory by default.
+- <b>analyze</b>:  Generates an IRX file for all jar, war, and ear projects in the build and submits it to the HCL AppScan on Cloud service or AppScan 360° for analysis. This task requires an API key, secret, and application ID. Additional parameters serviceUrl and acceptssl are needed for AppScan 360°. The IRX file will be generated in the root project's "target" directory by default.
 - <b>listTargets</b>:  Lists the targets that will be included in the generated .irx file.
 
 # Usage:
@@ -30,13 +30,14 @@ To execute the "prepare" goal, run the following command:
 To execute the "analyze" goal, run the following command:
 
 	mvn com.hcl.security:appscan-maven-plugin:analyze
-This goal requires the appId, appscanKey, and appscanSecret parameters.Additional parameters serviceUrl and acceptssl would be needed for AppScan 360°.
+This goal requires the appId, appscanKey, and appscanSecret parameters. Additional parameters serviceUrl and acceptssl are needed for AppScan 360°.
   
 **Note**: You can simplify the preceding commands by adding com.hcl.security to the list of plugin groups in your Maven settings.xml. To do so, add the following to ~/.m2/settings.xml or ${maven.home}/conf/settings.xml:
-XML
-<pluginGroups>
- <pluginGroup>com.hcl.security</pluginGroup>
-</pluginGroups>
+
+	<pluginGroups>
+  	  <pluginGroup>com.hcl.security</pluginGroup>
+	</pluginGroups>
+
 
 After doing so, you can execute the prepare goal using the "appscan" prefix. For example:
 
