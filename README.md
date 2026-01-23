@@ -8,7 +8,7 @@ quickly—90% are ready in less than one hour—having been honed by Intelligent
 other noise by an average of more than 98%. IFA also displays optimal locations for developers to fix multiple vulnerabilities in the code. [Learn more about Intelligent
 Finding Analytics.](https://securityintelligence.com/intelligent-finding-analytics-cognitive-computing-application-security-expert).
 
-Not yet an HCL AppScan on Cloud or AppScan 360 customer? [Get a free trial of Application Security on Cloud](https://cloud.appscan.com/) to use with Maven for a free trial of Application Security on Cloud, which you can use with Maven, or [get a free trial of AppScan 360°](https://www.hcl-software.com/appscan/products/appscan360/contact). 
+Not yet an HCL AppScan on Cloud or AppScan 360 customer? [Get a free trial of Application Security on Cloud](https://cloud.appscan.com/) to use with Maven,or [get a free trial of AppScan 360°](https://www.hcl-software.com/appscan/products/appscan360/contact). 
 
 # Prerequisites:
 
@@ -32,11 +32,11 @@ To execute the "analyze" goal, run the following command:
 	mvn com.hcl.security:appscan-maven-plugin:analyze
 This goal requires the appId, appscanKey, and appscanSecret parameters.Additional parameters serviceUrl and acceptssl would be needed for AppScan 360°.
   
-Note: The above commands can be simplified by adding com.hcl.security to the list of plugin groups in your Maven settings.xml. To do so, add the following to ~/.m2/settings.xml or ${maven.home}/conf/settings.xml:
-
-	<pluginGroups>
-  	  <pluginGroup>com.hcl.security</pluginGroup>
-	</pluginGroups>
+**Note**: You can simplify the preceding commands by adding com.hcl.security to the list of plugin groups in your Maven settings.xml. To do so, add the following to ~/.m2/settings.xml or ${maven.home}/conf/settings.xml:
+XML
+<pluginGroups>
+ <pluginGroup>com.hcl.security</pluginGroup>
+</pluginGroups>
 
 After doing so, you can execute the prepare goal using the "appscan" prefix. For example:
 
