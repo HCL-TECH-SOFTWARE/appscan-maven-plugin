@@ -26,7 +26,7 @@ To execute the "prepare" goal, run the following command:
 To execute the "analyze" goal, run the following command:
 
 	mvn com.hcl.security:appscan-maven-plugin:analyze
-This goal requires the appId, appscanKey, and appscanSecret paramaters.
+This goal requires the appId, appscanKey, and appscanSecret parameters.
   
 Note: The above commands can be simplified by adding com.hcl.security to the list of plugin groups in your Maven settings.xml. To do so, add the following to ~/.m2/settings.xml or ${maven.home}/conf/settings.xml:
 
