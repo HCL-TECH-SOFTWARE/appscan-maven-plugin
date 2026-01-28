@@ -1,19 +1,24 @@
-# HCL AppScan on Cloud Maven Plugin
+# HCL AppScan Maven Plugin
 
-Apply the power of static application security testing with HCL AppScan on Cloud – a SaaS solution that helps to eliminate vulnerabilities from applications before they are deployed. HCL AppScan on Cloud integrates directly into the SDLC, providing static, dynamic, mobile and open source testing.
+   Leverage the power of static application security testing (SAST) with HCL AppScan on Cloud, a SaaS service for eliminating app vulnerabilities before deployment, and
+HCL AppScan 360°, a cloud-native, self-managed platform for vulnerability elimination. Both solutions integrate directly into the software development lifecycle (SDLC), providing static, dynamic, and open-source testing.
 
-You can submit static and open source scans directly from the HCL AppScan on Cloud Maven plugin or use it to generate an IRX file for later submission to the service. The results are ready quickly (90% are ready in less than one hour) having been honed by Intelligent Finding Analytics, which uses HCL's Artificial Intelligence capabilities to greatly reduce false positives and other noise by an average of more than 98%. IFA also displays optimal locations for developers to fix multiple vulnerabilities in the code. Click [here](https://securityintelligence.com/intelligent-finding-analytics-cognitive-computing-application-security-expert/) for more information.
+You can submit static and open-source scans directly from the HCL AppScan Maven plugin or generate an IRX file for later submission to the service. Results are ready
+quickly—90% are ready in less than one hour—having been honed by Intelligent Finding Analytics (IFA). IFA uses HCL&#39;s AI capabilities to reduce false positives and
+other noise by an average of more than 98%. IFA also displays optimal locations for developers to fix multiple vulnerabilities in the code. [Learn more about Intelligent
+Finding Analytics.](https://securityintelligence.com/intelligent-finding-analytics-cognitive-computing-application-security-expert).
 
-Not yet a customer of HCL AppScan on Cloud? Click [here](https://cloud.appscan.com/) for a free trial of Application Security on Cloud to use with this plugin
+Not yet an HCL AppScan on Cloud or AppScan 360 customer? [Get a free trial of AppScan on Cloud](https://cloud.appscan.com/) to use with Maven, or [get a free trial of AppScan 360°](https://www.hcl-software.com/appscan/products/appscan360/contact). 
 
 # Prerequisites:
 
-- An account on the [HCL AppScan on Cloud](https://cloud.appscan.com/) service. You'll need to [create an application](https://help.hcltechsw.com/appscan/ASoC/ent_create_application.html) on the service to associate your scans with.
+- An account on the [HCL AppScan on Cloud Service](https://cloud.appscan.com/). You'll need to [create an application](https://help.hcltechsw.com/appscan/ASoC/ent_create_application.html) on the service to associate your scans with.
+- To execute scans in HCL AppScan 360°, you must have access to an instance of AppScan 360°.[Learn more about AppScan 360° features and installation](https://help.hcl-software.com/appscan/360/2.0.0/home.html).
 
 # Goals:
 
 - <b>prepare</b>:  Generates an IRX file for all jar, war, and ear projects in the build. The IRX file will be generated in the root project's "target" directory by default.
-- <b>analyze</b>:  Generates an IRX file for all jar, war, and ear projects in the build and submits it to the HCL AppScan on Cloud service for analysis. This task requires an api key, secret, and application id. The IRX file will be generated in the root project's "target" directory by default.
+- <b>analyze</b>:  Generates an IRX file for all jar, war, and ear projects in the build and submits it to the HCL AppScan on Cloud service or AppScan 360° for analysis. This task requires an API key, secret, and application ID. Additional parameter serviceUrl is needed for AppScan 360°. The IRX file will be generated in the root project's "target" directory by default.
 - <b>listTargets</b>:  Lists the targets that will be included in the generated .irx file.
 
 # Usage:
@@ -25,13 +30,14 @@ To execute the "prepare" goal, run the following command:
 To execute the "analyze" goal, run the following command:
 
 	mvn com.hcl.security:appscan-maven-plugin:analyze
-This goal requires the appId, appscanKey, and appscanSecret paramaters.
+This goal requires the appId, appscanKey, and appscanSecret parameters. Additional parameter serviceUrl is needed for AppScan 360°.
   
-Note: The above commands can be simplified by adding com.hcl.security to the list of plugin groups in your Maven settings.xml. To do so, add the following to ~/.m2/settings.xml or ${maven.home}/conf/settings.xml:
+**Note**: You can simplify the preceding commands by adding com.hcl.security to the list of plugin groups in your Maven settings.xml. To do so, add the following to ~/.m2/settings.xml or ${maven.home}/conf/settings.xml:
 
 	<pluginGroups>
   	  <pluginGroup>com.hcl.security</pluginGroup>
 	</pluginGroups>
+
 
 After doing so, you can execute the prepare goal using the "appscan" prefix. For example:
 
