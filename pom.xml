@@ -5,7 +5,7 @@
 	<groupId>com.hcl.security</groupId>
 	<artifactId>appscan-maven-plugin</artifactId>
 	<packaging>maven-plugin</packaging>
-	<version>1.0.16-SNAPSHOT</version>	
+	<version>1.0.16</version>	
 	<name>HCL AppScan on Cloud Maven Plugin</name>
 	<description>Generate an IRX file and optionally submit it for analysis to HCL AppScan on Cloud</description>
 	<url>https://help.hcltechsw.com/appscan/ASoC/src_irx_gen_maven.html</url>
@@ -51,6 +51,15 @@
 						<phase>process-classes</phase>
 					</execution>
 				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.sonatype.central</groupId>
+				<artifactId>central-publishing-maven-plugin</artifactId>
+				<version>0.9.0</version>
+				<extensions>true</extensions>
+				<configuration>
+					<publishingServerId>central</publishingServerId>
+				</configuration>
 			</plugin>
 		</plugins>
 		<resources>
@@ -160,13 +169,13 @@
 
 	<distributionManagement>
 		<snapshotRepository>
-    			<id>ossrh</id>
-    			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
-  		</snapshotRepository>
-  		<repository>
-    			<id>ossrh</id>
-    			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-  		</repository>
+			<id>central</id>
+			<url>https://central.sonatype.com/repository/maven-snapshots</url>
+		</snapshotRepository>
+		<repository>
+			<id>central</id>
+			<url>https://central.sonatype.com</url>
+		</repository>
 	</distributionManagement>
   
   	<scm>
